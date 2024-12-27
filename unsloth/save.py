@@ -1149,7 +1149,7 @@ def save_to_gguf(
     n_cpus *= 2
     # Concurrency from https://rentry.org/llama-cpp-conversions#merging-loras-into-a-model
 
-    final_location = str((Path(model_directory) / f"{new_save_directory.lstrip('/.')}.{first_conversion.upper()}.gguf").absolute())
+    final_location = str((Path(model_directory) / f"{model_name}.{first_conversion.upper()}.gguf").absolute())
     
     print(f"Unsloth: [1] Converting model at {model_directory} into {first_conversion} GGUF format.\n"\
           f"The output location will be {final_location}\n"\
@@ -1213,7 +1213,7 @@ def save_to_gguf(
     for quant_method in quantization_method:
         if quant_method != first_conversion:
             print(f"Unsloth: [2] Converting GGUF 16bit into {quant_method}. This might take 20 minutes...")
-            final_location = str((Path(model_directory) / f"{new_save_directory.lstrip('/.')}.{quant_method.upper()}.gguf").absolute())
+            final_location = str((Path(model_directory) / f"{model_name}.{quant_method.upper()}.gguf").absolute())
 
             command = f"./{quantize_location} {full_precision_location} "\
                 f"{final_location} {quant_method} {n_cpus}"
@@ -1609,6 +1609,7 @@ pass
 
 
 def unsloth_save_pretrained_gguf(
+    model_name           : str,
     self,
     save_directory       : Union[str, os.PathLike],
     tokenizer            = None,
@@ -1792,6 +1793,7 @@ pass
 
 
 def unsloth_push_to_hub_gguf(
+    model_name           : str,
     self,
     repo_id              : str,
     tokenizer            = None,
@@ -2339,8 +2341,8 @@ def patch_saving_functions(model, vision = False):
             # Counteract tokenizers
             model.push_to_hub_merged     = types.MethodType(unsloth_push_to_hub_merged,                    model)
             model.save_pretrained_merged = types.MethodType(unsloth_save_pretrained_merged,                model)
-            model.push_to_hub_gguf       = types.MethodType(unsloth_push_to_hub_gguf,                      model)
-            model.save_pretrained_gguf   = types.MethodType(unsloth_save_pretrained_gguf,                  model)
+            model.push_to_hub_gguf       = types.MethodType(unsloth_push_to_hub_gguf, model_nname,         model)
+            model.save_pretrained_gguf   = types.MethodType(unsloth_save_pretrained_gguf, model_nname,     model)
             model.push_to_hub_ggml       = types.MethodType(unsloth_convert_lora_to_ggml_and_push_to_hub,  model)
             model.save_pretrained_ggml   = types.MethodType(unsloth_convert_lora_to_ggml_and_save_locally, model)
         pass
