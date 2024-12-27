@@ -1149,7 +1149,7 @@ def save_to_gguf(
     n_cpus *= 2
     # Concurrency from https://rentry.org/llama-cpp-conversions#merging-loras-into-a-model
 
-    final_location = str((Path(model_directory) / f"unsloth.{first_conversion.upper()}.gguf").absolute())
+    final_location = str((Path(model_directory) / f"{save_directory}.{first_conversion.upper()}.gguf").absolute())
     
     print(f"Unsloth: [1] Converting model at {model_directory} into {first_conversion} GGUF format.\n"\
           f"The output location will be {final_location}\n"\
@@ -1213,7 +1213,7 @@ def save_to_gguf(
     for quant_method in quantization_method:
         if quant_method != first_conversion:
             print(f"Unsloth: [2] Converting GGUF 16bit into {quant_method}. This might take 20 minutes...")
-            final_location = str((Path(model_directory) / f"unsloth.{quant_method.upper()}.gguf").absolute())
+            final_location = str((Path(model_directory) / f"{save_directory}.{quant_method.upper()}.gguf").absolute())
 
             command = f"./{quantize_location} {full_precision_location} "\
                 f"{final_location} {quant_method} {n_cpus}"
@@ -1354,11 +1354,12 @@ tags:
 - text-generation-inference
 - transformers
 - unsloth
+- sebaxakerhtc
 - {model_type}
 - {extra}
 license: apache-2.0
 language:
-- en
+- bg
 ---
 
 # Uploaded {method} model
@@ -1367,9 +1368,9 @@ language:
 - **License:** apache-2.0
 - **Finetuned from model :** {base_model}
 
-This {model_type} model was trained 2x faster with [Unsloth](https://github.com/unslothai/unsloth) and Huggingface's TRL library.
+Тази {model_type} модела тренирана 2 пъти по-бързо с помоща на [Unsloth](https://github.com/unslothai/unsloth) и TRL библиотеката на Huggingface.
 
-[<img src="https://raw.githubusercontent.com/unslothai/unsloth/main/images/unsloth%20made%20with%20love.png" width="200"/>](https://github.com/unslothai/unsloth)
+[<img src="https://raw.githubusercontent.com/unslothai/unsloth/main/images/unsloth%20made%20with%20love.png" width="100"/>](https://github.com/unslothai/unsloth)
 """
 
 
