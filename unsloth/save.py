@@ -1149,7 +1149,7 @@ def save_to_gguf(
     n_cpus *= 2
     # Concurrency from https://rentry.org/llama-cpp-conversions#merging-loras-into-a-model
 
-    final_location = str((Path(model_directory) / f"{model_directory}.{first_conversion.upper()}.gguf").absolute())
+    final_location = str((Path(model_directory) / f"bgGPT-llama-3.1-8B.{first_conversion.upper()}.gguf").absolute())
     
     print(f"Unsloth: [1] Converting model at {model_directory} into {first_conversion} GGUF format.\n"\
           f"The output location will be {final_location}\n"\
@@ -1213,7 +1213,7 @@ def save_to_gguf(
     for quant_method in quantization_method:
         if quant_method != first_conversion:
             print(f"Unsloth: [2] Converting GGUF 16bit into {quant_method}. This might take 20 minutes...")
-            final_location = str((Path(model_directory) / f"{model_directory}.{quant_method.upper()}.gguf").absolute())
+            final_location = str((Path(model_directory) / f"bgGPT-llama-3.1-8B.{quant_method.upper()}.gguf").absolute())
 
             command = f"./{quantize_location} {full_precision_location} "\
                 f"{final_location} {quant_method} {n_cpus}"
@@ -1361,6 +1361,8 @@ tags:
 license: apache-2.0
 language:
 - bg
+datasets:
+- burgasdotpro/synthetic_dataset
 ---
 
 # Uploaded {method} model
@@ -1368,6 +1370,9 @@ language:
 - **Developed by:** {username}
 - **License:** apache-2.0
 - **Finetuned from model :** {base_model}
+
+Първите резултати, които не са лоши...
+Засега е тренирана върху моят малък датасет с 1000 реда синтетически дани (формат: въпрос-отговор)
 
 Тази {model_type} модела тренирана 2 пъти по-бързо с помоща на [Unsloth](https://github.com/unslothai/unsloth) и TRL библиотеката на Huggingface.
 
