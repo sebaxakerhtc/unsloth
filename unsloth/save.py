@@ -1355,6 +1355,7 @@ tags:
 - transformers
 - unsloth
 - sebaxakerhtc
+- bggpt
 - {model_type}
 - {extra}
 license: apache-2.0
