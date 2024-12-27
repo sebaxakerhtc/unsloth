@@ -2247,7 +2247,7 @@ def not_implemented_save(*args, **kwargs):
 pass
 
 
-def patch_saving_functions(model_filename: str="unsloth", model, vision = False):
+def patch_saving_functions(model_filename: str, model, vision = False):
     import inspect
     import types
     from typing import Callable, Optional, Union, List
