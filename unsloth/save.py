@@ -226,7 +226,7 @@ def unsloth_save_model(
 
     if commit_message is None: commit_message = ""
     if "Unsloth" not in commit_message:
-        commit_message += " (Trained with Unsloth)"
+        commit_message += " (Updated)"
     commit_message = commit_message.lstrip()
 
     if commit_description is None:
@@ -708,7 +708,7 @@ def unsloth_save_model(
             path_in_repo = ".",
             repo_id = new_save_directory,
             repo_type = "model",
-            commit_message  = "(Trained with Unsloth)",
+            commit_message  = "(Updated)",
             ignore_patterns = "*.md",
         )
     else:
@@ -1149,7 +1149,7 @@ def save_to_gguf(
     n_cpus *= 2
     # Concurrency from https://rentry.org/llama-cpp-conversions#merging-loras-into-a-model
 
-    final_location = str((Path(model_directory) / f"bgGPT-Qwen2.5-Math-7B-Inst.{first_conversion.upper()}.gguf").absolute())
+    final_location = str((Path(model_directory) / f"bgGPT-llama-3.1-8B.{first_conversion.upper()}.gguf").absolute())
     
     print(f"Unsloth: [1] Converting model at {model_directory} into {first_conversion} GGUF format.\n"\
           f"The output location will be {final_location}\n"\
@@ -1213,7 +1213,7 @@ def save_to_gguf(
     for quant_method in quantization_method:
         if quant_method != first_conversion:
             print(f"Unsloth: [2] Converting GGUF 16bit into {quant_method}. This might take 20 minutes...")
-            final_location = str((Path(model_directory) / f"bgGPT-Qwen2.5-Math-7B-Inst.{quant_method.upper()}.gguf").absolute())
+            final_location = str((Path(model_directory) / f"bgGPT-llama-3.1-8B.{quant_method.upper()}.gguf").absolute())
 
             command = f"./{quantize_location} {full_precision_location} "\
                 f"{final_location} {quant_method} {n_cpus}"
@@ -1497,7 +1497,7 @@ def upload_to_huggingface(
                     path_in_repo    = ftevent_file.replace(file_location, ""),
                     repo_id         = save_directory,
                     repo_type       = "model",
-                    commit_message  = "(Trained with Unsloth)",
+                    commit_message  = "(Updated)",
                 )
             pass
         pass
@@ -1507,7 +1507,7 @@ def upload_to_huggingface(
             path_in_repo    = uploaded_location,
             repo_id         = save_directory,
             repo_type       = "model",
-            commit_message  = "(Trained with Unsloth)",
+            commit_message  = "(Updated)",
         )
 
         # We also upload a config.json file
@@ -1521,7 +1521,7 @@ def upload_to_huggingface(
                 path_in_repo    = "config.json",
                 repo_id         = save_directory,
                 repo_type       = "model",
-                commit_message  = "(Trained with Unsloth)",
+                commit_message  = "(Updated)",
             )
             os.remove("_temporary_unsloth_config.json")
         pass
@@ -2281,7 +2281,7 @@ def patch_saving_functions(model, vision = False):
         if commit_message is not None:
             if not commit_message.endswith(" "): commit_message += " "
             if "Unsloth" not in commit_message:
-                commit_message += "(Trained with Unsloth)"
+                commit_message += "(Updated)"
         else:
             commit_message = "Upload model trained with Unsloth"
         arguments["commit_message"] = commit_message
