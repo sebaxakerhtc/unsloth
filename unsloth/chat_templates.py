@@ -1356,7 +1356,7 @@ def standardize_sharegpt(
     dataset,
     aliases_for_system    = ["system",],
     aliases_for_user      = ["user", "human", "input",],
-    aliases_for_assistant = ["gpt", "assistant", "output",],
+    aliases_for_assistant = ["gpt", "assistant", "output", "bot",],
 ):
     """
     Standardizes ShareGPT and other formats to user/assistant Hugging Face format.
