@@ -226,7 +226,7 @@ def unsloth_save_model(
 
     if commit_message is None: commit_message = ""
     if "Unsloth" not in commit_message:
-        commit_message += " (Initial commit)"
+        commit_message += " (Updated)"
     commit_message = commit_message.lstrip()
 
     if commit_description is None:
@@ -708,7 +708,7 @@ def unsloth_save_model(
             path_in_repo = ".",
             repo_id = new_save_directory,
             repo_type = "model",
-            commit_message  = "(Initial commit)",
+            commit_message  = "(Updated)",
             ignore_patterns = "*.md",
         )
     else:
@@ -1495,7 +1495,7 @@ def upload_to_huggingface(
                     path_in_repo    = ftevent_file.replace(file_location, ""),
                     repo_id         = save_directory,
                     repo_type       = "model",
-                    commit_message  = "(Initial commit)",
+                    commit_message  = "(Updated)",
                 )
             pass
         pass
@@ -1505,7 +1505,7 @@ def upload_to_huggingface(
             path_in_repo    = uploaded_location,
             repo_id         = save_directory,
             repo_type       = "model",
-            commit_message  = "(Initial commit)",
+            commit_message  = "(Updated)",
         )
 
         # We also upload a config.json file
@@ -1519,7 +1519,7 @@ def upload_to_huggingface(
                 path_in_repo    = "config.json",
                 repo_id         = save_directory,
                 repo_type       = "model",
-                commit_message  = "(Initial commit)",
+                commit_message  = "(Updated)",
             )
             os.remove("_temporary_unsloth_config.json")
         pass
