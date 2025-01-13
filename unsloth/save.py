@@ -1150,8 +1150,8 @@ def save_to_gguf(
     # Concurrency from https://rentry.org/llama-cpp-conversions#merging-loras-into-a-model
 
     # Give GGUF the same filename as project name
-    if "/" not in save_directory:
-        gguf_filename = save_directory
+    if "/" not in model_directory:
+        gguf_filename = model_directory
     else:
         gguf_filename = model_directory.split('/')[-1]
     pass
