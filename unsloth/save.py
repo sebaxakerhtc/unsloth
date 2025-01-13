@@ -1148,7 +1148,14 @@ def save_to_gguf(
     if n_cpus is None: n_cpus = 1
     n_cpus *= 2
     # Concurrency from https://rentry.org/llama-cpp-conversions#merging-loras-into-a-model
-    gguf_filename = model_directory.split('/')[-1]
+
+    # Give GGUF the same filename as project name
+    if "/" not in save_directory:
+        gguf_filename = save_directory
+    else:
+        gguf_filename = model_directory.split('/')[-1]
+    pass
+    
     final_location = str((Path(model_directory) / f"{gguf_filename}.{first_conversion.upper()}.gguf").absolute())
     
     print(f"Unsloth: [1] Converting model at {model_directory} into {first_conversion} GGUF format.\n"\
