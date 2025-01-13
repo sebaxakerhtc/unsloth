@@ -1626,6 +1626,7 @@ def unsloth_save_pretrained_gguf(
     tags                 : List[str] = None,
     temporary_location   : str = "_unsloth_temporary_saved_buffers",
     maximum_memory_usage : float = 0.85,
+    model_filename       : str = "Unsloth",
 ):
     """
         Same as .save_pretrained(...) except 4bit weights are auto
