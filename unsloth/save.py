@@ -217,6 +217,7 @@ def unsloth_save_model(
     revision             : str = None,
     commit_description   : str = "Upload model trained with Unsloth 2x faster",
     tags                 : List[str] = None,
+    model_filename       : str = "Unsloth",
 
     # Our functions
     temporary_location   : str = "_unsloth_temporary_saved_buffers",
