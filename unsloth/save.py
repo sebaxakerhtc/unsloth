@@ -217,7 +217,6 @@ def unsloth_save_model(
     revision             : str = None,
     commit_description   : str = "Upload model trained with Unsloth 2x faster",
     tags                 : List[str] = None,
-    model_filename       : str = "Unsloth",
 
     # Our functions
     temporary_location   : str = "_unsloth_temporary_saved_buffers",
@@ -942,7 +941,6 @@ def save_to_gguf(
     quantization_method  = "fast_quantized", # Can be a list of options! ["q4_k_m", "q8_0", "q5_k_m"]
     first_conversion     : str = None,
     _run_installer = None, # Non blocking install of llama.cpp
-    model_filename       : str = "Unsloth",
 ):
     # logger.warning(
     #     "NOTICE: llama.cpp GGUF conversion is currently unstable, since llama.cpp is\n"\
@@ -1150,8 +1148,8 @@ def save_to_gguf(
     if n_cpus is None: n_cpus = 1
     n_cpus *= 2
     # Concurrency from https://rentry.org/llama-cpp-conversions#merging-loras-into-a-model
-
-    final_location = str((Path(model_directory) / f"{model_filename}.{first_conversion.upper()}.gguf").absolute())
+    gguf_filename = model_directory.split('/')[-1]
+    final_location = str((Path(model_directory) / f"{gguf_filename}.{first_conversion.upper()}.gguf").absolute())
     
     print(f"Unsloth: [1] Converting model at {model_directory} into {first_conversion} GGUF format.\n"\
           f"The output location will be {final_location}\n"\
@@ -1215,7 +1213,7 @@ def save_to_gguf(
     for quant_method in quantization_method:
         if quant_method != first_conversion:
             print(f"Unsloth: [2] Converting GGUF 16bit into {quant_method}. This might take 20 minutes...")
-            final_location = str((Path(model_directory) / f"{model_filename}.{quant_method.upper()}.gguf").absolute())
+            final_location = str((Path(model_directory) / f"{gguf_filename}.{quant_method.upper()}.gguf").absolute())
 
             command = f"./{quantize_location} {full_precision_location} "\
                 f"{final_location} {quant_method} {n_cpus}"
@@ -1627,7 +1625,6 @@ def unsloth_save_pretrained_gguf(
     tags                 : List[str] = None,
     temporary_location   : str = "_unsloth_temporary_saved_buffers",
     maximum_memory_usage : float = 0.85,
-    model_filename       : str = "Unsloth",
 ):
     """
         Same as .save_pretrained(...) except 4bit weights are auto
@@ -1742,7 +1739,7 @@ def unsloth_save_pretrained_gguf(
     # Save to GGUF
     all_file_locations, want_full_precision = save_to_gguf(
         model_type, model_dtype, is_sentencepiece_model, 
-        new_save_directory, quantization_method, first_conversion, makefile, model_filename,
+        new_save_directory, quantization_method, first_conversion, makefile,
     )
 
     # Save Ollama modelfile
@@ -1920,7 +1917,7 @@ def unsloth_push_to_hub_gguf(
     # Save to GGUF
     all_file_locations, want_full_precision = save_to_gguf(
         model_type, model_dtype, is_sentencepiece_model, 
-        new_save_directory, quantization_method, first_conversion, makefile, model_filename,
+        new_save_directory, quantization_method, first_conversion, makefile,
     )
 
     # Save Ollama modelfile
