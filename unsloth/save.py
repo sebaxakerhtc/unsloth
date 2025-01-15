@@ -225,14 +225,10 @@ def unsloth_save_model(
     if token is None: token = get_token()
 
     if commit_message is None: commit_message = ""
-    if "Unsloth" not in commit_message:
-        commit_message += " (Continued pretraining)"
     commit_message = commit_message.lstrip()
 
     if commit_description is None:
         commit_description = "Upload model trained with Unsloth 2x faster"
-    elif "Unsloth 2x faster" not in commit_description:
-        commit_description += " (Trained with Unsloth 2x faster)"
     pass
 
     if save_method == "merged_4bit":
