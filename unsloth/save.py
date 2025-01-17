@@ -1358,14 +1358,24 @@ tags:
 - transformers
 - unsloth
 - sebaxakerhtc
+- bggpt
 - {model_type}
 - {extra}
 license: apache-2.0
 language:
-- ru
+- bg
 datasets:
-- IlyaGusev/saiga_scored
+- burgasdotpro/burgasdotpro
+- burgasdotpro/synthetic_dataset
 ---
+
+Модела базирана на mistral-7b-v0.3
+
+Актуализиран 17.01.2025
+  - Changed training params
+  - Updated dataset
+  - Continued pretraining
+  - Уикипедиа 5%
 
 # Uploaded {method} model
 
@@ -1373,9 +1383,7 @@ datasets:
 - **License:** apache-2.0
 - **Finetuned from model :** {base_model}
 
-Тестовая модель на базе llama-3.1-8B с датасетом от знаменитой [Сайги](https://huggingface.co/IlyaGusev/saiga_llama3_8b).
-
-Эта {model_type} модель тренирована в 2 раза быстрей с помощью [Unsloth](https://github.com/unslothai/unsloth) и TRL библиотеки Huggingface.
+Тази {model_type} модела тренирана 2 пъти по-бързо с помоща на [Unsloth](https://github.com/unslothai/unsloth) и TRL библиотеката на Huggingface.
 
 [<img src="https://raw.githubusercontent.com/unslothai/unsloth/main/images/unsloth%20made%20with%20love.png" width="100"/>](https://github.com/unslothai/unsloth)
 """
